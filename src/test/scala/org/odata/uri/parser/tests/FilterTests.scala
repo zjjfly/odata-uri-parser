@@ -1,9 +1,9 @@
 package org.odata.uri.parser.tests
 
-import org.scalatest.FunSuite
 import org.odata.uri.parser._
+import org.scalatest.funsuite.AnyFunSuite
 
-class FilterTests extends FunSuite {
+class FilterTests extends AnyFunSuite {
   val p = new ODataUriParser
   val mainParser = p.filter
 
@@ -15,9 +15,9 @@ class FilterTests extends FunSuite {
         EqualToExp(
           Property("name"),
           StringLiteral("'adil'")
+        )
       )
-    )
-    val actualAST:Expression = p.parseThis(mainParser, query).get
+    val actualAST: Expression = p.parseThis(mainParser, query).get
 
     assert(actualAST == expectedAST)
   }
@@ -32,27 +32,26 @@ class FilterTests extends FunSuite {
             Number("200")
           )
           , GreaterThanExp(
-              Property("Price"),
-              Number("3.5")
-            )
+            Property("Price"),
+            Number("3.5")
+          )
         )
       )
-    val actualAST:Expression = p.parseThis(mainParser, query).get
+    val actualAST: Expression = p.parseThis(mainParser, query).get
     assert(actualAST == expectedAST)
   }
-
 
 
   test("Parse $filter= moreThan(Price, 10)") {
     val query = "$filter= moreThan(Price, 10)"
     val expectedAST =
       Filter(
-          CallExp(
-            Property("moreThan")
+        CallExp(
+          Property("moreThan")
           , List(Property("Price"), Number("10"))
-          )
+        )
       )
-    val actualAST:Expression = p.parseThis(mainParser, query).get
+    val actualAST: Expression = p.parseThis(mainParser, query).get
     assert(actualAST == expectedAST)
   }
 
@@ -61,18 +60,16 @@ class FilterTests extends FunSuite {
     val expectedAST =
       Filter(
         EqualToExp(
-              CallExp(
-                  Property("toupper")
-                  , List(Property("CompanyName"))
-              )
-            , StringLiteral("'ALFREDS FUTTERKISTE'")
+          CallExp(
+            Property("toupper")
+            , List(Property("CompanyName"))
+          )
+          , StringLiteral("'ALFREDS FUTTERKISTE'")
         )
       )
-    val actualAST:Expression = p.parseThis(mainParser, query).get
+    val actualAST: Expression = p.parseThis(mainParser, query).get
     assert(actualAST == expectedAST)
   }
-
-
 
 
 }
