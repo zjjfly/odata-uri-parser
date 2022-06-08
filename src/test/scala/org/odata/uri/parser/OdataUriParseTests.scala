@@ -1,6 +1,5 @@
-package org.odata.uri.parser.tests
+package org.odata.uri.parser
 
-import org.odata.uri.parser._
 import org.scalatest.funsuite.AnyFunSuite
 
 class OdataUriParseTests extends AnyFunSuite {
